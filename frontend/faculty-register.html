@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Registration</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Smart Student Admission Portal</h1>
+    </header>
+    <div class="container">
+        <h2>Faculty Registration</h2>
+        <form id="facultyForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <select id="department_id" required>
+                <option value="">Select Department</option>
+            </select>
+            <button type="submit">Register</button>
+        </form>
+        <div id="message"></div>
+        <p><a href="index.html">Back to Login</a></p>
+    </div>
+    <script src="javascript/faculty-register.js"></script>
+</body>
+</html>

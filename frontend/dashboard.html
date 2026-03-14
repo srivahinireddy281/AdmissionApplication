@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admission Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Smart Student Admission Portal</h1>
+</header>
+
+<div class="container">
+
+    <h2>Admin Dashboard</h2>
+
+        <button id="logoutBtn" style="float: right;">Logout</button>
+        <div class="card">
+            <h3>Total Applications</h3>
+            <p id="total">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Approved</h3>
+            <p id="approved">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Pending</h3>
+            <p id="pending">0</p>
+        </div>
+
+    </div>
+
+
+    <h2>Student Applications</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Marks</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="studentTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+async function loadStudents(){
+
+const res = await fetch("http://localhost:5000/students")
+
+if (res.status === 403) {
+    window.location.href = 'index.html';
+    return;
+}
+
+const data = await res.json()
+
+let table = ""
+
+let approved = 0
+let pending = 0
+
+data.forEach(student =>{
+
+table += `
+<tr>
+<td>${student.id}</td>
+<td>${student.name}</td>
+<td>${student.email}</td>
+<td>${student.course}</td>
+<td>${student.marks}</td>
+<td>${student.status}</td>
+<td>
+    <button onclick="updateStatus(${student.id}, 'Approved')">Approve</button>
+    <button onclick="updateStatus(${student.id}, 'Rejected')">Reject</button>
+</td>
+</tr>
+`
+
+if(student.status === "Approved") approved++
+if(student.status === "Pending") pending++
+
+})
+
+document.getElementById("studentTable").innerHTML = table
+
+document.getElementById("total").innerText = data.length
+document.getElementById("approved").innerText = approved
+document.getElementById("pending").innerText = pending
+
+}
+
+async function updateStatus(id, status) {
+    try {
+        const res = await fetch(`http://localhost:5000/students/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status })
+        });
+
+        const result = await res.json();
+        if (res.ok) {
+            alert(result.message);
+            loadStudents(); // Reload the data
+        } else {
+            alert("Error updating status");
+        }
+    } catch (err) {
+        console.log(err);
+        alert("Error updating status");
+    }
+}
+
+loadStudents();
+
+document.getElementById("logoutBtn").addEventListener("click", async function() {
+    try {
+        await fetch("http://localhost:5000/logout", { method: "POST" });
+        window.location.href = 'index.html';
+    } catch (err) {
+        console.log(err);
+        window.location.href = 'index.html';
+    }
+});
+
+loadStudents()
+
+</script>
+
+</body>
+</html>
