@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", loadDepartments);
 
 async function loadDepartments() {
     try {
-        const res = await fetch("http://localhost:5000/departments");
+        const res = await fetch("/departments");
         const departments = await res.json();
         const select = document.getElementById("department_id");
         departments.forEach(dept => {
@@ -51,7 +51,7 @@ document.getElementById("facultyForm").addEventListener("submit", async function
     };
 
     try {
-        const res = await fetch("http://localhost:5000/faculty/register", {
+        const res = await fetch("/faculty/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

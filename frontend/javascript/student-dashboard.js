@@ -1,6 +1,6 @@
 async function loadStatus() {
     try {
-        const res = await fetch("http://localhost:5000/student/status");
+        const res = await fetch("/student/status");
 
         if (res.status === 403) {
             window.location.href = 'index.html';
@@ -31,7 +31,7 @@ async function loadStatus() {
 
 document.getElementById("logoutBtn").addEventListener("click", async function() {
     try {
-        await fetch("http://localhost:5000/logout", { method: "POST" });
+        await fetch("/logout", { method: "POST" });
         window.location.href = 'index.html';
     } catch (err) {
         console.log(err);
