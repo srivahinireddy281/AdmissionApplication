@@ -20,6 +20,7 @@ CREATE TABLE faculty (
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
     department_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (department_id) REFERENCES departments(id)
 );
 
@@ -31,6 +32,8 @@ CREATE TABLE students (
     course_id INT,
     marks INT,
     status VARCHAR(20) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status_updated_at TIMESTAMP NULL,
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 

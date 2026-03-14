@@ -13,6 +13,10 @@
 
 <div class="container">
 
+    <div id="facultyWelcome" class="welcome-message" style="display: none;">
+        <h2 id="welcomeText"></h2>
+    </div>
+
     <h2>Admin Dashboard</h2>
 
         <button id="logoutBtn" class="logout-btn">Logout</button>
@@ -60,6 +64,19 @@
 
 
 <script>
+
+async function loadFacultyProfile() {
+    try {
+        const res = await fetch("/faculty/profile");
+        if (res.ok) {
+            const data = await res.json();
+            document.getElementById("welcomeText").innerText = `Hi, ${data.name}`;
+            document.getElementById("facultyWelcome").style.display = "block";
+        }
+    } catch (err) {
+        console.log("Error loading faculty profile:", err);
+    }
+}
 
 async function loadStudents(){
 
@@ -142,7 +159,9 @@ document.getElementById("logoutBtn").addEventListener("click", async function() 
     }
 });
 
-loadStudents()
+loadStudents();
+
+loadFacultyProfile();
 
 </script>
 

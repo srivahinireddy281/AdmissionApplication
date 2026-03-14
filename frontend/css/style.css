@@ -195,9 +195,20 @@ tr:hover {
     margin-bottom: 20px;
 }
 
-.logout-btn:hover {
-    background: #c0392b;
-    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+.welcome-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.welcome-message h2 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 500;
 }
 
 .hero-section {
